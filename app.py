@@ -21,11 +21,7 @@ except OperationalError as e:
     st.error(f"Failed to connect to the database: {e}")
     st.stop()
 db = SQLDatabase(engine, sample_rows_in_table_info=3)
-
-# Initialize LLM
 llm = GoogleGenerativeAI(model="gemini-pro", google_api_key=os.environ["GOOGLE_API_KEY"])
-
-# Create SQL query chain
 chain = create_sql_query_chain(llm, db)
 
 def clean_sql_query(query):
@@ -45,8 +41,6 @@ def execute_query(question):
         
         st.write("Cleaned SQL Query:")
         st.code(cleaned_query, language="sql")
-        
-        # Execute the query
         with engine.connect() as connection:
             result = connection.execute(text(cleaned_query))
             columns = result.keys()
@@ -61,8 +55,6 @@ def display_result(columns, data):
         df = pd.DataFrame(data, columns=columns)
         st.write("Query Result:")
         st.dataframe(df)
-        
-        # Additional visualizations based on the data
         if len(df.columns) == 2:
             if df.dtypes[1] in ['int64', 'float64']:
                 st.bar_chart(df.set_index(df.columns[0]))
