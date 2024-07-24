@@ -9,14 +9,11 @@ from sqlalchemy.exc import ProgrammingError, OperationalError
 from dotenv import load_dotenv
 from langchain_community.utilities import SQLDatabase
 load_dotenv()
-
-# Database connection parameters
 db_user = "root"
 db_password = quote_plus("jarvis@123")
 db_host = "localhost"
 db_name = "retail_sales_db"
 engine = create_engine(f"mysql+pymysql://{db_user}:{db_password}@{db_host}/{db_name}")
-
 try:
     with engine.connect() as connection:
         st.success("Connected successfully to the database!")
