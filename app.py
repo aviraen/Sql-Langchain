@@ -6,8 +6,8 @@ from langchain.chains import create_sql_query_chain
 from langchain_google_genai import GoogleGenerativeAI
 from sqlalchemy import create_engine, text
 from sqlalchemy.exc import ProgrammingError, OperationalError
-from langchain_community.utilities import SQLDatabase
 from dotenv import load_dotenv
+from langchain_community.utilities import SQLDatabase
 
 # Load environment variables
 load_dotenv()
